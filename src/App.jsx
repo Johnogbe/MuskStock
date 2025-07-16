@@ -5,7 +5,7 @@ import Layout from './pages/layout';
 import Details from './pages/details';
 import Order from './pages/order';
 import Index from './pages/index';
-import StockBlog from './pages/stockBlog';
+import StockBlog from './pages/stockblog';
 import Login from './pages/login';
 import Signup from './pages/signup';
 import SpaceX from './pages/spacex';
