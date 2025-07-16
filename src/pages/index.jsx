@@ -1,0 +1,160 @@
+import React from 'react';
+import './index.css';
+import teslaCar1 from '../images/Homepage-Card-Cybertruck-Mobile-US.avif'
+import neuralinks from '../images/neuralink.jpg'
+import starlinks from '../images/starlink.webp'
+import teslaCar2 from '../images/Homepage-Card-Model-S-Mobile-US.avif'
+import teslaCar3 from '../images/Homepage-Card-Model-3-Mobile-US.avif'
+import spaceX from '../images/Axiom_4_outsidehangar_IMG_3412_mobile_1d63de3e7e.jpg'
+import spaceD from '../images/SpaceD.jpg'
+import elonmusk from '../images/AP24294060722467.webp'
+import Navbar from '../components/navbar'
+import News from '../components/news'
+import chart from '../images/tablet_homepage_investing_3x.jpeg'
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react';
+
+const Index = () => {
+  // Array of available stock data
+  const stocks = [
+    { id: 1, name: 'spaceX', change: '+23%', pic: spaceX },
+    { id: 2, name: 'tesla', change: '+5%', pic: teslaCar2 },
+    { id: 3, name: 'Google', change: '-2%', pic: teslaCar1 },
+    { id: 4, name: 'Facebook', change: '+12%', pic: teslaCar3 },
+  ];
+
+  const navigate = useNavigate();
+  const handleStockDetails = (stockname) => {
+    navigate(`/blog/${stockname}`);
+  };
+  const login = () => {
+    navigate(`/signup`);
+  };
+  const stockRefs = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const stockCard = entry.target.querySelector('.stock-card');
+            if (stockCard) {
+              stockCard.style.opacity = '1';
+              stockCard.style.transform = 'translateY(0)';
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.8,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+
+    stockRefs.current.forEach(ref => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      stockRefs.current.forEach(ref => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+  }, []);
+
+  return (
+    <>
+      <Navbar />
+      <div
+        className="hero-container flex justify-end items-center"
+        style={{
+          backgroundImage: `url(${elonmusk})`,
+          backgroundSize: 'cover',
+          backgroundPosition: '50% 16%',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="hero-content-left ">
+          <div className="text-content">
+            <h1>Intuitive trading tools</h1>
+            <p className="subheading">
+              Build your strategy and track market trends, seamlessly
+            </p>
+            <p className="description">
+              Trade stocks, options, crypto, and more on Tradewise app.
+            </p>
+            <Link className="cta-button" to='watchlist'>Start Trading</Link>
+          </div>
+        </div>
+      </div>
+
+
+      {
+        [{
+          id: 1,
+          description: 'Commercial GTO-1 Mission',
+          name: 'Tesla',
+          title: 'Upcoming Return',
+          image: spaceD,
+          
+        },
+        {
+          id: 2,
+          description: 'Commercial GTO-1 Mission',
+          name: 'SpaceX',
+          title: 'Upcoming Return',
+          image: teslaCar3,
+          
+        },
+        {
+          id: 3,
+          description: 'Commercial GTO-1 Mission',
+          name: 'Starlink',
+          title: 'Upcoming Return',
+          image: starlinks,
+          
+        },
+        {
+          id: 4,
+          description: 'Commercial GTO-1 Mission',
+          name: 'Neuralink',
+          title: 'Upcoming Return',
+          image: neuralinks,
+          
+        }
+        ].map((item, index) => {
+          return (
+            <div
+              key={item.id}
+              className='all-stock'
+              ref={el => stockRefs.current[index] = el}
+              style={{
+                backgroundImage: `url(${item.image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
+              }}
+            >
+              <div
+                className='stock-card'
+                style={{
+                  opacity: 0,
+                  transform: 'translateY(20px)',
+                  transition: 'opacity 0.5s ease, transform 0.5s ease'
+                }}
+              >
+                <p className="stock-p">{item.name}</p>
+                <p className="head">{item.description}</p>
+                <button onClick={()=>handleStockDetails(item.name)}className='hover:bg-white hover:text-black transition-all duration-300 transform hover:-translate-y-1' >Watch</button>
+              </div>
+            </div>)
+        })
+      }
+
+      <News />
+    </>
+  );
+};
+
+export default Index;

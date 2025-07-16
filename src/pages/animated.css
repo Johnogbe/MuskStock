@@ -1,0 +1,24 @@
+.animated-text-container {
+  font-family: 'Courier New', monospace;
+  font-size: 24px;
+    width: 400px;
+    font-weight: bold;
+}
+
+.dynamic-word {
+  display: inline-block;
+}
+
+.cursor {
+  display: inline-block;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+.cursor.visible {
+  opacity: 1;
+}
+
+.cursor.hidden {
+  opacity: 0;
+}

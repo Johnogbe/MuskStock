@@ -1,0 +1,19 @@
+@media (max-width: 768px) {
+     .video-section {
+       display: none; /* Hide video section on mobile */
+     }
+   }
+ 
+   @media (min-width: 769px) {
+     .video-section {
+       display: block; /* Show video section on desktop */
+     }
+   }
+ 
+   .video-section video {
+     width: 100%;
+     max-width: 350px;
+     border-radius: 12px;
+     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+     outline: none;
+   }

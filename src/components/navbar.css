@@ -1,0 +1,15 @@
+@media (max-width: 768px) {
+    .hidenav{
+    display: none;
+}
+    .mobile-li li{
+        display: none;
+        margin-bottom: 1px solid red;
+        background-color: #131612;
+
+    }
+
+.navleft {
+    margin-left: 10px;
+}
+}
